@@ -1,0 +1,57 @@
+<?php
+
+namespace PiotrK\ClientBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * ClientOrder
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="PiotrK\ClientBundle\Entity\ClientOrderRepository")
+ */
+class ClientOrder
+{
+
+    public function __construct(){
+        $this->products = new ArrayCollection();
+    }
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Client", cascade={"persist"})
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
+     */
+    private $client;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+
+    private $cost;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="order")
+     * */
+    private $products = array();
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}

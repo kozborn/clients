@@ -1,0 +1,15 @@
+{% if paginator and paginator.pages|length > 1%}
+  <div class="paginator">
+  {#   {% if paginator.prevPage %}
+      <a href="{{path('client_homepage' ,{'page':paginator.prevPage})}}" data-page="{{paginator.prevPage}}" title="Poprzednia">Poprzednia</a>
+    {% endif %} #}
+    {% for page in paginator.pages %}
+      <a class="{% if page == paginator.current %} active {% endif %}" title="{{page}}" data-page="{{page}}" href="{{path('client_homepage' ,{
+  'page':page
+  })}}">{{page}}</a>
+    {% endfor %}
+    {# {% if paginator.nextPage %}
+      <a href="{{path('client_homepage' ,{'page':paginator.nextPage})}}" data-page="{{paginator.nextPage}}" title="Poprzednia">Następna</a>
+    {% endif %} #}
+  </div>
+{% endif %}

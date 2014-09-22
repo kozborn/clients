@@ -1,0 +1,11 @@
+client_homepage:
+    path:     /{page}
+    defaults: { _controller: ClientBundle:Default:index, page: 1 }
+    requirements:
+      page: \d+
+
+client_report:
+    path:     /report-filter
+    defaults: { _controller: ClientBundle:Default:report }
+    requirements:
+      _method: POST

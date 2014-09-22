@@ -1,0 +1,14 @@
+{% extends 'ClientBundle::layout.html.twig' %}
+{% block body -%}
+<div class="filters">
+  <input type="text" name="name" value="" placeholder="Name"/>
+  <input type="text" class="datetime" name="dateStart" value="" placeholder="Date start"/>
+  <input type="text" class="datetime" name="dateEnd" value="" placeholder="Date end"/>
+  <input type="text" name="costStart" value="" placeholder="Cost start"/>
+  <input type="text" name="costEnd" value="" placeholder="Cost end"/>
+  <button id="search-result" type="sumbit" class="btn btn-xs btn-primary">Search</button>
+</div>
+<div id="report-container">
+  {% include "ClientBundle:Default:table.html.twig" with { 'entities' : entities} %} 
+</div>
+{% endblock %}
