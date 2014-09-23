@@ -65,6 +65,5 @@ class Clients
         setTimeout =>
             $('.message-container').fadeOut()
           , 1000
-        
-      .fail (jqHXR, response)=>
+      .fail (jqHXR, response) =>
         console.log response

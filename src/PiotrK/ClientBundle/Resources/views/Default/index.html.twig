@@ -1,20 +1,20 @@
 {% extends 'ClientBundle::layout.html.twig' %}
 {% block body -%}
-<div class="col-lg-12">
-<div class="filters">
-  <form method="post" class="form-inline" action="{{path('client_report')}}">
-    <input type="text" class="form-control" name="name" value="" placeholder="Name" autocomplete="off"/>
-    <input type="text" class="datetime form-control" name="dateStart" value="" placeholder="Date start"/>
-    <input type="text" class="datetime form-control" name="dateEnd" value="" placeholder="Date end"/>
-    <input type="text" class="form-control" name="costStart" value="" placeholder="Cost start" autocomplete="off"/>
-    <input type="text" class="form-control"  name="costEnd" value="" placeholder="Cost end" autocomplete="off"/>
-    <button id="search-result" class="btn btn-xs btn-primary hidden">Search</button>
-    <p class=" text-danger pull-right message-container"></p>
-  </form>
-</div>
-  <div id="report-container">
-    {% include "ClientBundle:Default:table.html.twig" with { 'entities' : entities} %} 
-  </div>
-</div>
+    <div class="col-lg-12">
+        <div class="filters">
+            <form method="post" class="form-inline" action="{{path('client_report')}}">
+                <input type="text" class="form-control" name="name" value="" placeholder="Name" autocomplete="off"/>
+                <input type="text" class="datetime form-control" name="dateStart" value="" placeholder="Date start"/>
+                <input type="text" class="datetime form-control" name="dateEnd" value="" placeholder="Date end"/>
+                <input type="text" class="form-control" name="costStart" value="" placeholder="Cost start" autocomplete="off"/>
+                <input type="text" class="form-control"  name="costEnd" value="" placeholder="Cost end" autocomplete="off"/>
+                <button id="search-result" class="btn btn-xs btn-primary hidden">Search</button>
+                <p class=" text-danger pull-right message-container"></p>
+            </form>
+        </div>
+        <div id="report-container">
+            {% include "ClientBundle:Default:table.html.twig" with { 'entities' : entities} %} 
+        </div>
+    </div>
 {% endblock %}
 
