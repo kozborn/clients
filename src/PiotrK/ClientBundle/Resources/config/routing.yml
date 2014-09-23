@@ -14,5 +14,5 @@ client_remove:
     path:     /remove-client/{id}
     defaults: { _controller: ClientBundle:Default:remove }
     requirements:
-      _methos: POST
+      _method: POST
       id: \d+
