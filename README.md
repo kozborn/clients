@@ -22,7 +22,7 @@ Then, use the `update` command:
 
     php app/console piotrk:generate-client --clients=clientsNo
     
-3) set up your virtual hosts
+3) Set up your virtual hosts
 ----------------------------------
     
     <VirtualHost *:80>
