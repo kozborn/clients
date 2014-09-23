@@ -9,11 +9,12 @@
     <input type="text" class="form-control" name="costStart" value="" placeholder="Cost start" autocomplete="off"/>
     <input type="text" class="form-control"  name="costEnd" value="" placeholder="Cost end" autocomplete="off"/>
     <button id="search-result" class="btn btn-xs btn-primary hidden">Search</button>
-</form>
+    <p class=" text-danger pull-right message-container"></p>
+  </form>
 </div>
-<div id="report-container">
-  {% include "ClientBundle:Default:table.html.twig" with { 'entities' : entities} %} 
-</div>
+  <div id="report-container">
+    {% include "ClientBundle:Default:table.html.twig" with { 'entities' : entities} %} 
+  </div>
 </div>
 {% endblock %}
 

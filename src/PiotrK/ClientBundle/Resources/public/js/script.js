@@ -23,6 +23,8 @@
 
     Clients.prototype.deleteLink = '.delete';
 
+    Clients.prototype.messageContainer = '#message-container';
+
     Clients.currentPage = 1;
 
     function Clients() {
@@ -85,14 +87,19 @@
       var deleteUrl;
       e.preventDefault();
       deleteUrl = $(e.target).attr('href');
-      return this.post = $.ajax({
+      this.post = $.ajax({
         url: deleteUrl,
         type: "POST"
       }).done((function(_this) {
         return function(response) {
-          return _this.search(e);
+          $('.message-container').html('').show();
+          $('.message-container').html($.parseJSON(response).message);
+          return setTimeout(function() {
+            return $('.message-container').fadeOut();
+          }, 1000);
         };
-      })(this)).fail((function(_this) {
+      })(this));
+      return this.search(e).fail((function(_this) {
         return function(jqHXR, response) {
           return console.log(response);
         };

@@ -61,7 +61,7 @@ class DefaultController extends Controller
       $em->remove($client);
       $em->flush();
       $json = array(
-        'message' => 'Client removed from database'
+        'message' => "Client with Id: $id, removed from database"
         );
       $response = new Response();
       $response->setContent(json_encode($json));

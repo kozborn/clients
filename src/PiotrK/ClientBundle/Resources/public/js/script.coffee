@@ -9,13 +9,14 @@ class Clients
   paginator: '.paginator'
   datetime: '.datetime'
   deleteLink: '.delete'
+  messageContainer: '#message-container'
   @currentPage: 1
   constructor: () ->
     @inputs = $('input')
     $(@datetime).datepicker({dateFormat: "yy-mm-dd" })
     @button = $('button#search-result')
     @container = $('#report-container')
-   
+    
     @url = @inputs.parents('form').attr('action')
     @bindLinks()
     @inputs.bind 'keyup', @search
@@ -57,6 +58,13 @@ class Clients
       type: "POST",
       })
       .done (response) =>
+        $('.message-container').html('').show()
+        $('.message-container').html($.parseJSON(response).message)
+        setTimeout =>
+            $('.message-container').fadeOut()
+          , 1000
+
+
         @search(e)
       .fail (jqHXR, response)=>
         console.log response
