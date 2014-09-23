@@ -9,3 +9,10 @@ client_report:
     defaults: { _controller: ClientBundle:Default:report }
     requirements:
       _method: POST
+
+client_remove:
+    path:     /remove-client/{id}
+    defaults: { _controller: ClientBundle:Default:remove }
+    requirements:
+      _methos: POST
+      id: \d+

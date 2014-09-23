@@ -19,12 +19,10 @@ class DefaultController extends Controller
 
       $entities = $em->getRepository('ClientBundle:Client')->getClients($page, $this->entitiesLimit);
       $total = $entities->count();
+      $page = $page <= 0 ? 1 : $page;
+      $offset = $this->getOffset($page, $total);
 
       $paginator = new Paginator($page, $total, $this->entitiesLimit);
-
-      $page = $page <= 0 ? 1 : $page;
-      $offset = ($page - 1) * $this->entitiesLimit;
-      $offset = ($offset < $total) ? $offset : 0;
       $entities = $entities->slice($offset, $this->entitiesLimit);
 
       return $this->render('ClientBundle:Default:index.html.twig', array(
@@ -41,16 +39,38 @@ class DefaultController extends Controller
         
         $entities = $em->getRepository('ClientBundle:Client')->getClientsFiltered($filters);
         $total = $entities->count();
-
         $page = $page <= 0 ? 1 : $page;
-        $offset = ($page - 1) * $this->entitiesLimit;
-        $offset = ($offset < $total) ? $offset : 0;
-        $entities = $entities->slice($offset, $this->entitiesLimit);
+        $offset = $this->getOffset($page, $total);
 
+        $entities = $entities->slice($offset, $this->entitiesLimit);
         $paginator = new Paginator($page, $total, $this->entitiesLimit);
 
         return $this->render('ClientBundle:Default:table.html.twig', array(
           'entities' => $entities,
           'paginator' => $paginator,));
+    }
+
+    public function removeAction(Request $request, $id){
+      $em = $this->getDoctrine()->getManager();
+      $client = $em->getRepository('ClientBundle:Client')->find($id);
+
+      if (!$client) {
+        throw $this->createNotFoundException('Unable to find Client.');
+      }
+
+      $em->remove($client);
+      $em->flush();
+      $json = array(
+        'message' => 'Client removed from database'
+        );
+      $response = new Response();
+      $response->setContent(json_encode($json));
+
+      return $response;
+    }
+
+    private function getOffset($page, $total){
+      $offset = ($page - 1) * $this->entitiesLimit;
+      return $offset = ($offset < $total) ? $offset : 0;
     }
 }

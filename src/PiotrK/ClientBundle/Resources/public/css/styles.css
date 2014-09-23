@@ -1,5 +1,12 @@
+*{
+  font-size: 14px;
+}
 span.cost,
 span.date{
   font-style: italic;
   font-size: 12px;
+}
+
+a.active{
+  color: red;
 }

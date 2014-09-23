@@ -1,37 +1,43 @@
 jQuery(document).ready ($)->
-  filter = new Filter
+  clients = new Clients
 
-class Filter
+class Clients
   inputs: null
   button: null
   container: null
   url: null
-  paginator: null
+  paginator: '.paginator'
+  datetime: '.datetime'
+  deleteLink: '.delete'
   @currentPage: 1
   constructor: () ->
     @inputs = $('input')
-    $( ".datetime" ).datepicker({dateFormat: "yy-mm-dd" })
+    $(@datetime).datepicker({dateFormat: "yy-mm-dd" })
     @button = $('button#search-result')
     @container = $('#report-container')
-    @url = "/app_dev.php/report-filter"
-    @button.click @search
-    @bindPagination()
+   
+    @url = @inputs.parents('form').attr('action')
+    @bindLinks()
+    @inputs.bind 'keyup', @search
+    @inputs.bind 'change', @search
+    @button.bind 'click', @search
 
-  bindPagination: () ->
-    $('.paginator').find('a').bind 'click', @setCurrentPage
+  bindLinks: () ->
+    $(@paginator).find('a').bind 'click', @setCurrentPage
+    $(@deleteLink).bind 'click', @removeClient
 
   setCurrentPage: (e) =>
     e.preventDefault()
-    @currentPage =  $(e.target).data('page')
-    @search()
+    @currentPage = $(e.target).data('page')
+    @search(e)
 
-  search: () =>
+  search: (e) =>
+    e.preventDefault()
     values = {}
     values.page = @currentPage
     @inputs.each (index, item) =>
       if item.value
         values[$(item).attr('name')] = item.value
-    console.log values
     @post = $.ajax({
       url: @url,
       type: "POST",
@@ -39,8 +45,18 @@ class Filter
       })
       .done (response) =>
         @container.html(response)
-        @bindPagination()
-        # @updateValueContainer target,response
+        @bindLinks()
       .fail (jqHXR, response)=>
         console.log response
-        # @failure(jqHXR, response)
+
+  removeClient: (e) =>
+    e.preventDefault()
+    deleteUrl = $(e.target).attr('href')
+    @post = $.ajax({
+      url: deleteUrl,
+      type: "POST",
+      })
+      .done (response) =>
+        @search(e)
+      .fail (jqHXR, response)=>
+        console.log response
