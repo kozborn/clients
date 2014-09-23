@@ -26,9 +26,17 @@ class GenerateClientsCommand extends ContainerAwareCommand
     {
         $clients = $input->getOption('clients');
         if ($clients and is_numeric($clients)) {
+          if($clients > 1000){
+            $text = 'Clients count must be lower then 1000';
+            $output->writeln($text);
+            return;
+          }else{
             $text = 'Generating ' . $clients . ' clients';
+          }
         } else {
-            $text = 'piotrk:generate-client --clents {value} options is required';
+            $text = 'piotrk:generate-client --clents {value} options is required, value must be > 0';
+            $output->writeln($text);
+            return;
         }
 
 
@@ -37,7 +45,7 @@ class GenerateClientsCommand extends ContainerAwareCommand
         $this->truncateTables($dm);
 
         $clientsCollection = new ArrayCollection();
-        $output->writeln($text);
+        
 
         for($i = 0; $i < $clients; $i++){
             $newClient = new Client();
@@ -51,11 +59,11 @@ class GenerateClientsCommand extends ContainerAwareCommand
         $ordersCollection = new ArrayCollection();
         $output->writeln('Creating orders for clients');
         foreach($clientsCollection as $client){
-            $orderCount = rand(1 , 3);
+            $orderCount = rand(1 , 5);
             for($orderNo = 0; $orderNo < $orderCount; $orderNo++){
                 $newOrder = new ClientOrder();
                 $date = new \DateTime();
-                $date->setTimestamp(rand(1400000000, 1409695200));  
+                $date->setTimestamp(rand(1400000000, $date->getTimestamp()));  
                 $newOrder->setCreated($date);
                 $newOrder->setClient($client);
                 $ordersCollection->add($newOrder);
@@ -68,7 +76,7 @@ class GenerateClientsCommand extends ContainerAwareCommand
 
         $output->writeln('Adding products to orders');
         foreach($ordersCollection as $order){
-            $productCount = rand(1, 3);
+            $productCount = rand(1, 10);
             for($productNo = 0; $productNo < $productCount; $productNo++){
                     $i++;
                     $newProduct = new Product();
