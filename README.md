@@ -19,7 +19,7 @@ Then, use the `update` command:
 
 2) Generate clients using symfony2 console command
 
-    php app/console piotrk:generate-client --clients{clientsNo}
+    php app/console piotrk:generate-client --clients=clientsNo
     
 3) set up your virtual hosts
     
