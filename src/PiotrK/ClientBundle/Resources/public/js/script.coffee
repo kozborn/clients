@@ -53,18 +53,18 @@ class Clients
   removeClient: (e) =>
     e.preventDefault()
     deleteUrl = $(e.target).attr('href')
+    $(e.target).parent('tr').hide();
     @post = $.ajax({
       url: deleteUrl,
       type: "POST",
       })
       .done (response) =>
-        $('.message-container').html('').show()
+        $('.message-container').show()
         $('.message-container').html($.parseJSON(response).message)
+        @search(e)
         setTimeout =>
             $('.message-container').fadeOut()
           , 1000
-
-
-        @search(e)
+        
       .fail (jqHXR, response)=>
         console.log response

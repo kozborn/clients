@@ -10,3 +10,7 @@ span.date{
 a.active{
   color: red;
 }
+
+div.filters{
+  margin-top: 15px;
+}

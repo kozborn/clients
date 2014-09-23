@@ -87,19 +87,20 @@
       var deleteUrl;
       e.preventDefault();
       deleteUrl = $(e.target).attr('href');
-      this.post = $.ajax({
+      $(e.target).parent('tr').hide();
+      return this.post = $.ajax({
         url: deleteUrl,
         type: "POST"
       }).done((function(_this) {
         return function(response) {
-          $('.message-container').html('').show();
+          $('.message-container').show();
           $('.message-container').html($.parseJSON(response).message);
+          _this.search(e);
           return setTimeout(function() {
             return $('.message-container').fadeOut();
           }, 1000);
         };
-      })(this));
-      return this.search(e).fail((function(_this) {
+      })(this)).fail((function(_this) {
         return function(jqHXR, response) {
           return console.log(response);
         };
