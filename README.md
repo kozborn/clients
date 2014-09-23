@@ -18,10 +18,12 @@ Then, use the `update` command:
     php composer.phar update
 
 2) Generate clients using symfony2 console command
+----------------------------------
 
     php app/console piotrk:generate-client --clients=clientsNo
     
 3) set up your virtual hosts
+----------------------------------
     
     <VirtualHost *:80>
         ServerName your-server-name
