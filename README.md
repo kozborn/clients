@@ -22,13 +22,13 @@ Then, use the `update` command:
     php app/console piotrk:generate-client --clients{clientsNo}
     
 3) set up your virtual hosts
-    example:
+    
     <VirtualHost *:80>
-    ServerName your-server-name
-    ServerAlias domain.com.localhost
-    ServerAdmin webmaster@localhost
-
-    DocumentRoot /path/to/app/web
+        ServerName your-server-name
+        ServerAlias domain.com.localhost
+        ServerAdmin webmaster@localhost
+    
+        DocumentRoot /path/to/app/web
         <Directory /path/to/app/web>
             Options Indexes FollowSymLinks MultiViews
             AllowOverride all
@@ -41,3 +41,4 @@ Then, use the `update` command:
             </IfModule>
         </Directory>
     </VirtualHost>
+    
